@@ -6,26 +6,27 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pytest-requires-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pytest-requires-{{ version }}.tar.gz
   sha256: 1d7ee62cffcd4d6ba16d21e5f96fc6d9006ef94f923d64e278d8b5fddbec924e
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python_min }}
   run:
     - pytest >=3.5.0
-    - python >=3.5
+    - python >={{ python_min }}
 
 test:
   requires:
     - pip
     - pytest
+    - python {{ python_min }}
   source_files:
     - tests/
   commands:
